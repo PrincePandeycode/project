@@ -1,0 +1,151 @@
+<html>
+    <head>
+        <style>
+            body{
+                /* background-color: #423d3d; */
+                /* background-image: url("clock2.jpg"); */
+                
+
+            }
+            .img-bg{
+                 opacity: 0.7;
+                 position: absolute;
+                 width: 100%;
+                 
+                
+                
+            }
+            .one{
+                /* display: inline-block; */
+                display: flex;
+                padding:20px ;
+                background-color: black;
+                margin: 10;
+                justify-content: center;
+                position: relative;
+               
+            }
+
+            .date{
+                color: black;
+                opacity: 0.6;
+                display: flex;
+                justify-content: center;
+            }
+            .hour{
+                border:  12px solid gray;
+                color: white;
+                padding:10px 10px;
+                border-radius: 7px;
+                font-size:100px;;
+
+            }
+            .minute{
+                border:  12px solid gray;
+                color: white;
+                padding:10px 10px;
+                border-radius: 7px;
+                font-size:100px;
+            }
+            .colon{
+                /* border:  12px solid gray; */
+                color: white;
+                padding:10px 10px;
+                border-radius: 7px;
+                font-size:100px;;
+            }
+            .second{
+                border:  12px solid gray;
+                color: white;
+                padding:10px 10px;
+                border-radius: 7px;
+                font-size:100px;;
+            }
+            .navi{
+                display: flex;
+                justify-content: center;
+                padding: 20px 5px;
+                background-color: gray;
+                font-size: 30px;
+                font-weight: bolder;
+                color: white;
+                position: relative;
+                
+                
+            }
+            .datuper{
+                border:  1px solid #000;
+                margin: 10 20;
+                padding: 10px 20px;
+                color: black;
+                /* opacity: 0.3; */
+                display: flex;
+                justify-content: center;
+                font-size: larger;
+                font-weight: bold;
+                background-color: gray;
+                position: relative;
+            }
+            .demo-wrap{
+                overflow: hidden;
+                position: relative;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="demo-wrap">
+        <img src="clock2.jpg" alt="" class="img-bg">
+        <nav class="navi">
+            A DIGITAL CLOCK
+        </nav>
+        <div class="datuper">
+            <div>DATE IS :</div>
+            <div class="date"></div>
+            <div class="monthname"></div>/
+            <div class="yearname"></div>
+
+        </div>
+        
+        <div class="clock" >
+        <div class="one">
+           
+            <div class="hour">
+
+            </div>/<div class="colon">:</div>
+            <div class="minute">
+
+            </div>/<div class="colon">:</div>
+            <div class="second">
+
+            </div>
+        </div>
+        </div>
+    </div>
+    </body>
+    <script>
+ 
+      function updateClock() {
+            let a = new Date();
+            let s = a.getSeconds();
+            let d = a.getDate();
+            let h = a.getHours();
+            let m = a.getMinutes();
+            let mn = a.getMonth()+1;
+            let yn = a.getFullYear();
+
+            document.querySelector('.date').textContent = d;
+            document.querySelector('.hour').textContent = h;
+            document.querySelector('.minute').textContent = m;
+            document.querySelector('.second').textContent = s;
+            document.querySelector('.monthname').textContent = mn;
+            document.querySelector('.yearname').textContent = yn;
+         
+        }
+
+        // Call updateClock initially
+        updateClock();
+
+        // Update the clock every second
+        setInterval(updateClock, 1000);
+    </script>
+</html>

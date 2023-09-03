@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+</head>
+<body>
+  <div id="content"></div>
+  <script>
+    let url = "https://api.jikan.moe/v4/anime?q=naruto";
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        let dataArray = data.data;
+        dataArray.sort((a, b) => {
+          return new Date(a.aired.from) - new Date(b.aired.from);
+        });
+        dataArray.shift();
+        let ihtml = "";
+        for (let i = 0; i < dataArray.length; i++) {
+          let apistartDate = dataArray[i].aired.from;
+          let sformattedDate = new Date(apistartDate).toLocaleDateString();
+          ihtml += `
+              <div class="card">
+                  <h1 class="card-title">title : ${dataArray[i].title_english}</h1>
+                  <div class="bot2">
+                      <div class="side1">
+                        <img src="${dataArray[i].images.jpg.image_url}" class="card-img"></img>
+                        <p class="card-episodes">Episodes: ${dataArray[i].episodes}</p>
+                        <h5 class="card-duration">Duration: ${dataArray[i].duration}</h5>
+                        <h5 class="card-from">Aired: ${dataArray[i].aired.string}</h5>
+                        <h5 class="card-start">Start Date: ${sformattedDate}</h5>
+                      </div>
+                      <div class="side2">
+                        <p class="card-background">Background: ${dataArray[i].background}</p>
+                        <p class="card-summary">Summary: ${dataArray[i].synopsis}</p>
+                        <a class="card-button" href="${dataArray[i].url}">Visit Here</a>
+                      </div>
+                  </div>
+              </div>`;
+        }
+        let bc = document.createElement("div");
+        bc.innerHTML = ihtml;
+
+        let contentDiv = document.getElementById("content");
+        contentDiv.appendChild(bc);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  </script>
+  <style>
+    /* Default styles for all screen sizes */
+    .card {
+      border: 1px solid #ccc;
+      color: white;
+      margin: 10px;
+      padding: 10px;
+      background-color: #000000;
+    }
+
+    .bot2 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-top: 2px solid white;
+    }
+
+    .side1 {
+      flex: 1;
+      margin-left: 20px;
+      border-right: 2px solid rgb(215, 188, 188);
+    }
+
+    .side2 {
+      flex: 2;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
+    .card-title {
+      display: flex;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .card-img {
+      /* max-width: 100%; */
+      width: 70%;
+      height: auto;
+      margin-top: 20px;
+      /* margin-left: 50px; */
+      margin-bottom: 5px;
+      border-bottom: 1px solid rgb(255, 255, 255);
+    }
+
+    .card-duration,
+    .card-from,
+    .card-start,
+    .card-background,
+    .card-episodes,
+    .card-summary {
+      margin-top: 5px;
+      font-size: 14px;
+    }
+
+    .card-button {
+      display: inline-block;
+      margin-top: 10px;
+      background-color: #007bff;
+      color: #fff;
+      padding: 5px 10px;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    .card-button:hover {
+      background-color: #00b339;
+    }
+
+    /* Media query for screens with a maximum width of 768px (tablets and smaller) */
+    @media (max-width: 956px) {
+      .card {
+        border: 1px solid #ccc;
+        color: white;
+        margin: 10px;
+        padding: 10px;
+        background-color: #000000;
+      }
+
+      .bot2 {
+        border-top: 2px solid white;
+        display: block;
+        
+       
+      }
+
+      .side1{
+        border-right: none;
+        margin: 10px;
+        
+      }
+      .side2 {
+        margin: 10px;
+       
+      }
+
+      .card-episodes,
+      .card-duration,
+      .card-from,
+      .card-start,
+      .card-background,
+      .card-summary {
+        font-size: 12px;
+      }
+
+      .card-button {
+        font-size: 12px;
+        padding: 3px 6px;
+      }
+
+      .card-img {
+        margin-left: auto;
+        margin-right: auto;
+       border: none;
+       width: 100%;
+      }
+    }
+    
+
+    /* Media query for screens with a maximum width of 576px (phones and smaller) */
+    
+  </style>
+</body>
+</html>
